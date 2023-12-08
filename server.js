@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { hash } from 'bcrypt';
+import { compare, hash } from 'bcrypt';
 import express, { json } from 'express';
 
 const app = express();
@@ -19,6 +19,20 @@ app.post('/api/auth/register', async (req, res) => {
     },
   });
 
+  return res.json({ user });
+});
+
+// ログイン
+app.post('/api/auth/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await prisma.user.findUniqueOrThrow({
+    where: {
+      email,
+    },
+  });
+
+  const isValidPassword = await compare(password, user.password);
   return res.json({ user });
 });
 
