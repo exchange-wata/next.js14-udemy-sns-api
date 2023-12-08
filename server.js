@@ -1,11 +1,14 @@
 import { PrismaClient } from '@prisma/client';
 import { compare, hash } from 'bcrypt';
 import express, { json } from 'express';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import jwt from 'jsonwebtoken';
 
 const app = express();
 
 const PORT = 5000;
 const prisma = new PrismaClient();
+const token = (userId) => jwt.sign({ id: userId }, process.env.SECRET_KEY, { expiresIn: '1d' });
 
 app.use(json());
 
@@ -33,7 +36,8 @@ app.post('/api/auth/login', async (req, res) => {
   });
 
   const isValidPassword = await compare(password, user.password);
-  return isValidPassword ? 'ログイン成功' : 'ログイン失敗';
+
+  return isValidPassword ? token(user.id) : 'ログイン失敗';
 });
 
 app.listen(PORT, () => console.log(`server is running on port ${PORT}`));
