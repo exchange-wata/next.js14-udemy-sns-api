@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "nodemon server.js"
   },
