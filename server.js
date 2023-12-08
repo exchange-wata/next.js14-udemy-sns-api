@@ -33,7 +33,7 @@ app.post('/api/auth/login', async (req, res) => {
   });
 
   const isValidPassword = await compare(password, user.password);
-  return res.json({ user });
+  return isValidPassword ? 'ログイン成功' : 'ログイン失敗';
 });
 
 app.listen(PORT, () => console.log(`server is running on port ${PORT}`));
