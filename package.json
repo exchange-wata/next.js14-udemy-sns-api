@@ -1,11 +1,11 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "app.js",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon app.js"
   },
   "license": "MIT",
   "dependencies": {
