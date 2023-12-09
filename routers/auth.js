@@ -33,7 +33,7 @@ router.post('/login', async (req, res) => {
 
   const isValidPassword = await compare(password, user.password);
 
-  return isValidPassword ? token(user.id) : 'ログイン失敗';
+  return isValidPassword ? res.json(token(user.id)) : 'ログイン失敗';
 });
 
 // eslint-disable-next-line import/prefer-default-export
