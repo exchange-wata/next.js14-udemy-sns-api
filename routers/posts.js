@@ -16,7 +16,7 @@ router.post('/post', async (req, res) => {
     const post = await prisma.post.create({
       data: {
         content,
-        authorId: 1,
+        authorId: 1, // TODO: requestから取得するように変更する
       },
     });
     return res.status(200).json(post);
