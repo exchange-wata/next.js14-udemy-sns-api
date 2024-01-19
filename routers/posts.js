@@ -8,15 +8,15 @@ const prisma = new PrismaClient();
 
 // つぶやき投稿用PI
 router.post('/post', async (req, res) => {
-  const { context } = req.body;
+  const { content } = req.body;
 
-  if (!context) return res.status(400).json({ message: '投稿内容がありません。' });
+  if (!content) return res.status(400).json({ message: '投稿内容がありません。' });
 
   try {
     const post = await prisma.post.create({
       data: {
-        context,
-        authId: 1,
+        content,
+        authorId: 1,
       },
     });
     return res.status(200).json(post);
