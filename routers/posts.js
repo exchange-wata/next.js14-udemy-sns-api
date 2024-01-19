@@ -16,7 +16,7 @@ router.post('/post', async (req, res) => {
     const post = await prisma.post.create({
       data: {
         content,
-        authorId: 1, // TODO: requestから取得するように変更する
+        authorId: 20, // TODO: requestから取得するように変更する。ログインユーザーにid=20番を使ってる
       },
     });
     return res.status(200).json(post);
@@ -25,7 +25,25 @@ router.post('/post', async (req, res) => {
   }
 });
 
-// TODO: 最新のつぶやき投稿用API
+// 最新のつぶやき投稿用API
+router.get('/get', async (req, res) => {
+  try {
+    const posts = await prisma.post.findMany({
+      select: {
+        id: true,
+        content: true,
+        createdAt: true,
+        author: true,
+      },
+      take: 10,
+      orderBy: { createdAt: 'desc' },
+    });
+    return res.status(200).json(posts);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: 'サーバーエラーです' });
+  }
+});
 
 // eslint-disable-next-line import/prefer-default-export
 export { router as postsRoute };
