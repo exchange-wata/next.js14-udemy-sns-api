@@ -6,7 +6,7 @@ import express from 'express';
 import token from '../utils/createToken.js';
 
 const router = express.Router();
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({ log: ['query'] });
 
 // 新規登録
 router.post('/register', async (req, res) => {

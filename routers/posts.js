@@ -4,7 +4,7 @@ import express from 'express';
 // eslint-disable-next-line import/extensions
 
 const router = express.Router();
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({ log: ['query'] });
 
 // つぶやき投稿用PI
 router.post('/post', async (req, res) => {
