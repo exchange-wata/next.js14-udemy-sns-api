@@ -18,6 +18,7 @@ router.post('/post', async (req, res) => {
         content,
         authorId: 20, // TODO: requestから取得するように変更する。ログインユーザーにid=20番を使ってる
       },
+      include: { author: true },
     });
     return res.status(200).json(post);
   } catch (error) {
@@ -29,14 +30,9 @@ router.post('/post', async (req, res) => {
 router.get('/get', async (req, res) => {
   try {
     const posts = await prisma.post.findMany({
-      select: {
-        id: true,
-        content: true,
-        createdAt: true,
-        author: true,
-      },
       take: 10,
       orderBy: { createdAt: 'desc' },
+      include: { author: true },
     });
     return res.status(200).json(posts);
   } catch (error) {
