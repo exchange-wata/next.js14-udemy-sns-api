@@ -4,7 +4,7 @@ import cors from 'cors';
 import express, { json } from 'express';
 import { authRoute } from './routers/auth.js';
 import { postsRoute } from './routers/posts.js';
-import { usersRoute } from './routers/user.js';
+import { usersRoute } from './routers/users.js';
 
 const app = express();
 
