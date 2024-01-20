@@ -15,3 +15,6 @@ router.get('/find', authentication, async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 });
+
+// eslint-disable-next-line import/prefer-default-export
+export { router as usersRoute };
