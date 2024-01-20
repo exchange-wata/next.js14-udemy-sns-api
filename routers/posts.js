@@ -1,13 +1,14 @@
-/* eslint-disable import/no-import-module-exports */
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 import { PrismaClient } from '@prisma/client';
 import express from 'express';
-// eslint-disable-next-line import/extensions
+import authentication from '../middleware/authentication.js';
 
 const router = express.Router();
 const prisma = new PrismaClient({ log: ['query'] });
 
 // つぶやき投稿用PI
-router.post('/post', async (req, res) => {
+router.post('/post', authentication, async (req, res) => {
   const { content } = req.body;
 
   if (!content) return res.status(400).json({ message: '投稿内容がありません。' });
@@ -16,7 +17,7 @@ router.post('/post', async (req, res) => {
     const post = await prisma.post.create({
       data: {
         content,
-        authorId: 20, // TODO: requestから取得するように変更する。ログインユーザーにid=20番を使ってる
+        authorId: req.userId,
       },
       include: { author: true },
     });
@@ -36,7 +37,7 @@ router.get('/get', async (req, res) => {
     });
     return res.status(200).json(posts);
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     return res.status(500).json({ message: 'サーバーエラーです' });
   }
 });
