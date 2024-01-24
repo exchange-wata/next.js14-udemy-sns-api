@@ -14,7 +14,15 @@ router.post('/register', async (req, res) => {
   const hashedPassword = await hash(password, 10);
   const user = await prisma.user.create({
     data: {
-      name, email, password: hashedPassword,
+      name,
+      email,
+      password: hashedPassword,
+      profile: {
+        create: {
+          bio: '初めまして',
+          imageUrl: 'sample.ong',
+        },
+      },
     },
   });
 
