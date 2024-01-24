@@ -19,7 +19,7 @@ router.post('/post', authentication, async (req, res) => {
         content,
         authorId: req.userId,
       },
-      include: { author: true },
+      include: { author: { include: { profile: true } } },
     });
     return res.status(200).json(post);
   } catch (error) {
@@ -33,7 +33,7 @@ router.get('/get', async (req, res) => {
     const posts = await prisma.post.findMany({
       take: 10,
       orderBy: { createdAt: 'desc' },
-      include: { author: true },
+      include: { author: { include: { profile: true } } },
     });
     return res.status(200).json(posts);
   } catch (error) {
