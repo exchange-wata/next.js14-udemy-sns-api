@@ -4,6 +4,7 @@ import cors from 'cors';
 import express, { json } from 'express';
 import { authRoute } from './routers/auth.js';
 import { postsRoute } from './routers/posts.js';
+import { profileRoute } from './routers/profile.js';
 import { usersRoute } from './routers/users.js';
 
 const app = express();
@@ -15,5 +16,6 @@ app.use(json());
 app.use('/api/auth', authRoute);
 app.use('/api/posts', postsRoute);
 app.use('/api/users', usersRoute);
+app.use('/api/profile', profileRoute);
 
 app.listen(PORT, () => console.log(`server is running on port ${PORT}`));
