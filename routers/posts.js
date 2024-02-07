@@ -42,5 +42,23 @@ router.get('/get', async (req, res) => {
   }
 });
 
+// 任意のユーザーの投稿内容だけを取得する
+router.get('/get/:userId', async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const posts = await prisma.post.findMany({
+      where: {
+        authorId: Number(userId),
+      },
+      orderBy: { createdAt: 'desc' },
+      include: { author: true },
+    });
+    return res.status(200).json(posts);
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({ message: 'サーバーエラーです' });
+  }
+});
+
 // eslint-disable-next-line import/prefer-default-export
 export { router as postsRoute };
