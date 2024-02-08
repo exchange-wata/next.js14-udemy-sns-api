@@ -16,14 +16,12 @@ router.get('/find/:userId', async (req, res) => {
       include: { user: true },
     });
     return res.status(200).json({
-      profile: {
-        id: profile.id,
-        bio: profile.bio,
-        imageUrl: profile.imageUrl,
-        user: {
-          id: profile.user.id,
-          name: profile.user.name,
-        },
+      id: profile.id,
+      bio: profile.bio,
+      imageUrl: profile.imageUrl,
+      user: {
+        id: profile.user.id,
+        name: profile.user.name,
       },
     });
   } catch (error) {
