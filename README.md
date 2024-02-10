@@ -33,7 +33,7 @@ DATABASE_URL="postgresql://root:root@localhost:5432/sns?schema=public"
 
 ### アプリケーションについて
 
-1. ルート直下に下記コマンドを実行してください。
+1. ルート直下にて下記コマンドを実行してください。
 
 ```bash
 yarn dev
